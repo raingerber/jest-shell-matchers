@@ -1,0 +1,6 @@
+**/*.test.js
+__mocks__
+__snapshots__
+coverage
+test-scripts
+matchers-test-utils
