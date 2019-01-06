@@ -121,6 +121,22 @@ await expect(input).toHaveMatchingSpawnOutput({
 })
 ```
 
+### **.toHaveStdoutMatchingSnapshot ()**
+
+- Take snapshots of the stdout
+
+```javascript
+await expect(input).toHaveStdoutMatchingSnapshot()
+```
+
+### **.toHaveStderrMatchingSnapshot ()**
+
+- Take snapshots of the stderr
+
+```javascript
+await expect(input).toHaveStderrMatchingSnapshot()
+```
+
 ## LICENSE
 
 MIT

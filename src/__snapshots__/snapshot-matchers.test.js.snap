@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot matchers toHaveSpawnOutputMatchingSnapshot: toHaveSpawnOutputMatchingSnapshot 1`] = `
+Object {
+  "code": 0,
+  "signal": "",
+  "stderr": "A noble fellow, I warrant him.
+",
+  "stdout": "The glorious gods sit in hourly synod about thy particular prosperity
+",
+}
+`;
+
+exports[`snapshot matchers toHaveStderrMatchingSnapshot: toHaveStderrMatchingSnapshot 1`] = `
+"A noble fellow, I warrant him.
+"
+`;
+
+exports[`snapshot matchers toHaveStdoutMatchingSnapshot: toHaveStdoutMatchingSnapshot 1`] = `
+"The glorious gods sit in hourly synod about thy particular prosperity
+"
+`;

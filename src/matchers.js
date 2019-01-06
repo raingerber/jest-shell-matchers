@@ -1,5 +1,10 @@
 const spawnWithMocks = require('spawn-with-mocks')
 const testRunner = require('./test-runner')
+const {
+  toHaveSpawnOutputMatchingSnapshot,
+  toHaveStdoutMatchingSnapshot,
+  toHaveStderrMatchingSnapshot
+} = require('./snapshot-matchers')
 
 /**
  * @param {String|Array} input
@@ -35,7 +40,10 @@ function extendJestWithShellMatchers () {
 
   // eslint-disable-next-line no-undef
   expect.extend({
-    toHaveMatchingSpawnOutput
+    toHaveMatchingSpawnOutput,
+    toHaveSpawnOutputMatchingSnapshot,
+    toHaveStdoutMatchingSnapshot,
+    toHaveStderrMatchingSnapshot
   })
 }
 
