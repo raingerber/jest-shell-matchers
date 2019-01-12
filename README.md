@@ -8,7 +8,7 @@ Run shell scripts and make assertions about the exit code, stdout, stderr, and t
 
 ## Usage
 
-The library exposes [asynchronous matchers](https://jestjs.io/docs/en/expect#async-matchers), so it requires [Jest 23 or higher](https://jestjs.io/blog/2018/05/29/jest-23-blazing-fast-delightful-testing.html#custom-asynchronous-matchers) (to run synchronous tests, use [spawn-with-mocks](https://www.npmjs.com/package/spawn-with-mocks) directly). Mocks are created by writing temporary files to disk, so they do not work if `fs.writeFileSync` is being mocked.
+The library exposes [asynchronous matchers](https://jestjs.io/docs/en/expect#async-matchers), so it requires [Jest 23 or higher](https://jestjs.io/blog/2018/05/29/jest-23-blazing-fast-delightful-testing.html#custom-asynchronous-matchers) (to run tests with synchronous matchers, use [spawn-with-mocks](https://www.npmjs.com/package/spawn-with-mocks) directly). Mocks are created by writing temporary files to disk, so they do not work if `fs.writeFileSync` is being mocked.
 
 **Initialization**
 
