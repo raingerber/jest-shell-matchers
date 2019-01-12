@@ -61,7 +61,7 @@ Received:
 
   it('expecting a String', async () => {
     const output = await runAllTestCasesForInput({
-      input: ['sh', ['./test-scripts/hello-world.sh']],
+      input: ['sh', ['./hello-world.sh']],
       correctOutput: `Hello World
 `,
       incorrectOutput: `Jim Bob
@@ -89,7 +89,7 @@ Received:
 
   it('expecting a RegExp', async () => {
     const output = await runAllTestCasesForInput({
-      input: ['sh', ['./test-scripts/hello-world.sh']],
+      input: ['sh', ['./hello-world.sh']],
       correctOutput: /^Hello World/,
       incorrectOutput: /^Jim Bob/
     })
@@ -115,7 +115,7 @@ Received:
 
   it('expecting an Object', async () => {
     const output = await runAllTestCasesForInput({
-      input: ['sh', ['./test-scripts/hello-world.sh']],
+      input: ['sh', ['./hello-world.sh']],
       correctOutput: {
         code: 0,
         stdout: /^Hello World/,
@@ -235,35 +235,5 @@ Expected exit code to be:
 Received:
   RECEIVED: 124"
 `)
-  })
-})
-
-describe('readme examples', () => {
-  it('test the output from a spawned process', async () => {
-    const input = ['sh', ['./test-scripts/hello-world.sh']]
-    const expectedOutput = {
-      code: 0,
-      stdout: `Hello World
-`,
-      stderr: ''
-    }
-    await expect(input).toHaveMatchingSpawnOutput(expectedOutput)
-  })
-  it('with mock', async () => {
-    expect.assertions(4)
-    const mocks = {
-      mv: jest.fn((sourceDir, targetDir) => {
-        expect(sourceDir).toBe('/src/dir')
-        expect(targetDir).toBe('/target/dir')
-        return {
-          exit: 0,
-          stdout: '',
-          stderr: ''
-        }
-      })
-    }
-    const input = ['sh', ['./test-scripts/mv.sh', '/src/dir'], { mocks }]
-    await expect(input).toHaveMatchingSpawnOutput(0)
-    expect(mocks.mv).toHaveBeenCalledTimes(1)
   })
 })

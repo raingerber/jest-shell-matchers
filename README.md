@@ -25,7 +25,7 @@ beforeAll(() => {
 **Example Without Mocks**
 
 ```javascript
-describe('test the output from a spawned process', async () => {
+it('should test the output from a spawned process', async () => {
   // this input will be executed by child_process.spawn
   const input = ['sh', ['./hello-world.sh']]
   const expectedOutput = {
@@ -45,40 +45,46 @@ describe('test the output from a spawned process', async () => {
 Mocks are created by [spawn-with-mocks](https://www.npmjs.com/package/spawn-with-mocks), which documents the mocking API. In this example, we mock the `date` and `mkdir` commands:
 
 ```javascript
-/*
-# mkdir.sh
-# this script creates a directory
-# named after the current date
+const fs = require('fs')
 
+it('should mock the date and mkdir commands', async () => {
+  fs.writeFileSync(
+    './mkdir.sh',
+// this example script creates a directory
+// that is named for the current date
+`
+#!/bin/sh
 DIR_NAME=$(date +'%m-%d-%Y')
 mkdir $DIR_NAME
-*/
+`)
 
-// Mocking the output
-// for the date command
-const date = () => {
-  return {
-    code: 0,
-    stdout: '01-06-2019',
-    stderr: ''
+  // Mocking the output
+  // for the date command
+  const date = () => {
+    return {
+      code: 0,
+      stdout: '01-06-2019',
+      stderr: ''
+    }
   }
-}
 
-// Testing the input to mkdir,
-// and mocking the output
-const mkdir = jest.fn(dir => {
-  expect(dir).toBe('01-06-2019')
-  return {
-    code: 0,
-    stdout: '',
-    stderr: ''
-  }
+  // Testing the input to mkdir,
+  // and mocking the output
+  const mkdir = jest.fn(dir => {
+    expect(dir).toBe('01-06-2019')
+    return {
+      code: 0,
+      stdout: '',
+      stderr: ''
+    }
+  })
+
+  const mocks = { date, mkdir }
+  const input = ['sh', ['./mkdir.sh'], { mocks }]
+  await expect(input).toHaveMatchingSpawnOutput(0)
+  expect(mocks.mkdir).toHaveBeenCalledTimes(1)
+  fs.unlinkSync('./mkdir.sh')
 })
-
-const mocks = { date, mkdir }
-const input = ['sh', ['./mkdir.sh'], { mocks }]
-await expect(input).toHaveMatchingSpawnOutput(0)
-expect(mocks.mkdir).toHaveBeenCalledTimes(1)
 ```
 
 Mocks can also return a `Number` or `String` to shorten the code:
